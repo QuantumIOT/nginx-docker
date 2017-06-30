@@ -18,7 +18,7 @@ while /bin/true; do
 
   new_ips=$(curl --unix-socket /var/run/docker.sock http:/v1.30/tasks | jq -r -j ".[] | .NetworksAttachments[].Addresses[] + .ID");
 
-  if [ "$new_ips" == "$current_ips" ]; then
+  if [ "$new_ips" = "$current_ips" ]; then
     echo "It looks like the IPs have changed, restarting nginx";
     service nginx reload
   fi
