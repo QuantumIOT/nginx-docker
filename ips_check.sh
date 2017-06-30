@@ -20,7 +20,13 @@ while /bin/true; do
 
   if [ "$new_ips" != "$current_ips" ]; then
     echo "It looks like the IPs have changed, restarting Nginx";
+
+    if [ -z "$SLACK_HOOK_URL" ]; then
+      curl -X POST --data-urlencode payload="{\"text\": \"Nginx container $(hostname) reloaded in $ENV environment because it detected IPs changes\"}" $SLACK_HOOK_URL;
+    fi
+
     service nginx reload
+
   fi
 
   current_ips=$new_ips
