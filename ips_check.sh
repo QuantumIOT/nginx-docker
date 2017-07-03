@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 curl --unix-socket /var/run/docker.sock http:/v1.30/tasks >/dev/null 2>&1
 
